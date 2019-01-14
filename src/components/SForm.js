@@ -1,85 +1,22 @@
 import React from 'react';
-
 import Form from 'react-jsonschema-form';
+import WorkPlacesTemplate from './WorkPlacesTemplate';
+import WorkPlace from './WorkPlace';
+import FieldGroup from './FieldGroup';
+import CustomToggle from './CustomToggle';
+import LayoutGridField from 'react-jsonschema-form-layout-grid';
 
-import { Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
-
-const FieldGroup = ({ id, label, help, ...props }) => {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-};
-
-// Define a custom component for handling the root position object
-class Job extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log('props', props.formData);
-    this.state = { ...props.formData };
-  }
-
-  onChange(name) {
-    return event => {
-      this.setState(
-        {
-          [name]: parseFloat(event.target.value)
-        },
-        () => this.props.onChange(this.state)
-      );
-    };
-  }
-
-  render() {
-    const { jobName, weekPercentage, annualIncome } = this.state;
-    return (
-      <Row>
-        <Col sm={6} md={3}>
-          <FieldGroup
-            id="formControlsText"
-            type="text"
-            label="What do you do for a living?"
-            placeholder="Enter text"
-            value={jobName}
-            onChange={this.onChange('jobName')}
-          />
-
-          {/*
-          <label className="control-label">What do you do for a living?</label>
-          <input className="form-control" type="text" value={jobName} onChange={this.onChange('jobName')} placeholder=""/>
-*/}
-        </Col>
-        <Col sm={6} md={3}>
-          <label className="control-label">Percentage of Week</label>
-          <input
-            className="form-control"
-            type="number"
-            value={weekPercentage}
-            onChange={this.onChange('weekPercentage')}
-          />
-        </Col>
-        <Col sm={6} md={3}>
-          <label className="control-label">Annual Gross Income</label>
-          <input className="form-control" type="number" value={annualIncome} onChange={this.onChange('annualIncome')} />
-        </Col>
-      </Row>
-    );
-  }
-}
-
-const fields = { job: Job };
+const fields = { WorkPlace, FieldGroup, layout_grid: LayoutGridField };
 
 const shemaTypes = {
-  job: {
+  workPlace: {
     type: 'object',
     required: ['jobName', 'weekPercentage', 'annualIncome'],
     properties: {
-      jobName: { type: 'string' },
-      weekPercentage: { type: 'number' },
-      annualIncome: { type: 'number' }
+      jobName: { type: 'string', title: 'What do you do for a living?' },
+      weekPercentage: { type: 'number', title: 'Percentage of Week' },
+      annualIncome: { type: 'number', title: 'Annual Gross Income' },
+      selfEmployed: { type: 'number', title: 'Self Employed' }
     }
   }
 };
@@ -90,8 +27,6 @@ const schema3 = {
   type: 'object',
   //required: ['firstName', 'lastName'],
   properties: {
-    //  job: shemaTypes.job,
-
     aboutYou: {
       type: 'object',
       title: 'About You',
@@ -104,6 +39,12 @@ const schema3 = {
         height: {
           type: 'number',
           title: 'Height'
+        },
+
+        measureUnits: {
+          type: 'string',
+          title: 'Measurement Units',
+          enum: ['METRIC UNITS', 'IMPERIAL UNITS']
         }
       }
     },
@@ -116,94 +57,39 @@ const schema3 = {
           type: 'number',
           title: 'Weekly work hours'
         },
-
         workPlaces: {
-          type: 'array',
           title: 'List and item level defaults',
+          type: 'array',
           minItems: 1,
           maxItems: 5,
           default: [
-            { jobName: 'work1', weekPercentage: 10, annualIncome: 10000 },
-            { jobName: 'work2', weekPercentage: 20, annualIncome: 20000 }
+            { jobName: 'work1def', weekPercentage: 10, annualIncome: 10000 },
+            { jobName: 'work2def', weekPercentage: 20, annualIncome: 20000 }
           ],
-          //default: ['0', 'trout', 'bream'],
-          items:
-            /*{
-            title: 'where work?',
-            type: 'number',
-            default: '0'
-          }*/ shemaTypes.job
+          items: shemaTypes.workPlace
         }
       }
     }
-    /*
-    age: {
-      type: 'integer',
-      title: 'Age'
-    },
-    bio: {
-      type: 'string',
-      title: 'Bio'
-    },
-    password: {
-      type: 'string',
-      title: 'Password',
-      minLength: 3
-    },
-    telephone: {
-      type: 'string',
-      title: 'Telephone',
-      minLength: 10
-    }*/
   }
 };
-
-/*
-const schema2 = {
-  title: 'A registration form',
-  description: 'A simple form example.',
-  type: 'object',
-  required: ['firstName', 'lastName'],
-  properties: {
-    firstName: {
-      type: 'string',
-      title: 'First name'
-    },
-    lastName: {
-      type: 'string',
-      title: 'Last name'
-    },
-    age: {
-      type: 'integer',
-      title: 'Age'
-    },
-    bio: {
-      type: 'string',
-      title: 'Bio'
-    },
-    password: {
-      type: 'string',
-      title: 'Password',
-      minLength: 3
-    },
-    telephone: {
-      type: 'string',
-      title: 'Telephone',
-      minLength: 10
-    }
-  }
-};
-*/
 
 const uiSchema = {
-  job: { 'ui:field': 'job' },
-
   aboutYou: {
+    'ui:field': 'layout_grid',
+    'ui:layout_grid': {
+      'ui:row': [
+        { 'ui:col': { md: 3, children: ['weight'] } },
+        { 'ui:col': { md: 3, children: ['height'] } },
+        { 'ui:col': { md: 3, children: ['measureUnits'] } }
+      ]
+    },
+
     weight: {
       'ui:autofocus': true,
       'ui:emptyValue': '',
       'ui:title': 'What is your weight?',
       'ui:placeholder': 'Weight',
+      //   'ui:field': 'FieldGroup',
       'ui:widget': 'updown'
     },
     height: {
@@ -211,6 +97,11 @@ const uiSchema = {
       'ui:title': 'What is your height?',
       'ui:placeholder': 'Height',
       'ui:widget': 'updown'
+    },
+
+    measureUnits: {
+      //'ui:title': ' ',
+      'ui:widget': CustomToggle
     }
   },
   employment: {
@@ -219,61 +110,25 @@ const uiSchema = {
       'ui:title': 'How many hours do you work each week?',
       'ui:placeholder': 'Weekly work hours',
       'ui:widget': 'updown'
-    },
-
-    workPlaces: {
-      // 'ui:options': {
-      //   orderable: false
-      // },
-      'ui:field': 'job'
     }
   }
-
-  /*
-  age: {
-    'ui:widget': 'updown',
-    'ui:title': 'Age of person',
-    'ui:description': '(earthian year)'
-  },
-  bio: {
-    'ui:widget': 'textarea'
-  },
-  password: {
-    'ui:widget': 'password',
-    'ui:help': 'Hint: Make it strong!'
-  },
-  date: {
-    'ui:widget': 'alt-datetime'
-  },
-  telephone: {
-    'ui:options': {
-      inputType: 'tel'
-    }
-  }*/
 };
 
 const formData = {
+  aboutYou: {
+    /*    height: 178,
+    weight: 80,*/
+    measureUnits: 'METRIC UNITS'
+  },
+  workPlaces: [
+    { jobName: 'work1', weekPercentage: 10, annualIncome: 10000 },
+    { jobName: 'work2', weekPercentage: 20, annualIncome: 20000 }
+  ],
   job: {
     jobName: 'Top manager',
     weekPercentage: 20,
     annualIncome: 70000
-  },
-
-  workPlaces: {
-    items: [{ jobName: 'Top manager', weekPercentage: 20, annualIncome: 70000 }]
-  } /*{
-    'jobName': 'papap'
-    0:{
-      jobName: 'Top manager1',
-      weekPercentage: 10,
-      annualIncome: 1000
-    },
-    1:{
-      jobName: 'Top manager2',
-      weekPercentage: 20,
-      annualIncome: 2000
-    },
-  }*/
+  }
 };
 
 const log = type => console.log.bind(console, type);
@@ -288,6 +143,7 @@ const SForm = () => {
       onSubmit={log('submitted')}
       onError={log('errors')}
       fields={fields}
+      ArrayFieldTemplate={WorkPlacesTemplate}
     />
   );
 };
