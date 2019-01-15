@@ -14,7 +14,7 @@ import 'popper.js';
 //import 'glyphicons-only-bootstrap/css/bootstrap.css';
 //import 'glyphicons-halflings/css/glyphicons-halflings.css';
 
-import SForm from './components/SForm';
+import SForm from './components/views/SForm';
 
 class App extends Component {
   render() {

@@ -2,7 +2,6 @@ import React from 'react';
 import { Checkbox, Col, ControlLabel, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 import FieldGroup from './FieldGroup';
 
-// Define a custom component for handling the root position object
 class WorkPlace extends React.Component {
   constructor(props) {
     super(props);
@@ -22,11 +21,9 @@ class WorkPlace extends React.Component {
 
   render() {
     const { jobName, weekPercentage, annualIncome, selfEmployed } = this.state;
-    const {schema} = this.props;
+    const { schema } = this.props;
     const schemaProps = schema.properties;
 
-
-console.log('WorkPlace props',this.props);
     return (
       <div>
         <Col xs={3} sm={3} md={3} lg={3}>
@@ -42,7 +39,13 @@ console.log('WorkPlace props',this.props);
           <FormGroup>
             <ControlLabel>{schemaProps.weekPercentage.title}</ControlLabel>
             <InputGroup>
-              <FormControl type="number" step="0.01" value={weekPercentage} onChange={this.onChange('weekPercentage')} placeholder="Enter text" />
+              <FormControl
+                type="number"
+                step="0.01"
+                value={weekPercentage}
+                onChange={this.onChange('weekPercentage')}
+                placeholder="Enter text"
+              />
               <InputGroup.Addon>%</InputGroup.Addon>
             </InputGroup>
           </FormGroup>
@@ -55,11 +58,12 @@ console.log('WorkPlace props',this.props);
               <InputGroup.Addon>£</InputGroup.Addon>
             </InputGroup>
           </FormGroup>
-          </Col>
+        </Col>
         <Col xs={2} sm={2} md={2} lg={2}>
           <FormGroup>
-            <ControlLabel>{schemaProps.selfEmployed.title}
-            <Checkbox checked={selfEmployed} onChange={this.onChange('selfEmployed')} />
+            <ControlLabel>
+              {schemaProps.selfEmployed.title}
+              <Checkbox checked={selfEmployed} onChange={this.onChange('selfEmployed')} />
             </ControlLabel>
           </FormGroup>
         </Col>

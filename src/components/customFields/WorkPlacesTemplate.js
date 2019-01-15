@@ -26,15 +26,9 @@ const WorkPlacesTemplate = props => {
       {props.canAdd && (
         <Row>
           <Col xs={2} xsOffset={9}>
-
             <Button bsStyle="link" bsSize="large" onClick={props.onAddClick} type="button">
               <Glyphicon glyph="plus" />
             </Button>
-
-{/*
-          <p className="col-xs-3 col-xs-offset-9 array-item-add text-right">
-          </p>
-*/}
           </Col>
         </Row>
       )}
