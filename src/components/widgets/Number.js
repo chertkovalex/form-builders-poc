@@ -7,7 +7,7 @@ const Number = ({ options, ...props }) => {
   return (
     <InputGroup>
       {prefix && <InputGroup.Addon>{prefix}</InputGroup.Addon>}
-      <FormControl type="number" {...props} />
+      <FormControl type="number" {...props} onChange={event => props.onChange(event.target.value)} />
       {suffix && <InputGroup.Addon>{suffix}</InputGroup.Addon>}
     </InputGroup>
   );
