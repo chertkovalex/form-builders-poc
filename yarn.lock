@@ -1872,22 +1872,10 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap-solarized@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bootstrap-solarized/-/bootstrap-solarized-1.0.2.tgz#e449034934d57c1229353c1da8b518411a218255"
-  integrity sha1-5EkDSTTVfBIpNTwdqLUYQRohglU=
-  dependencies:
-    bootstrap ">=3.0.0"
-
-bootstrap@>=3.0.0, bootstrap@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.2.1.tgz#8f8bdca024dbf0e8644da32e918c8a03a90a5757"
-  integrity sha512-tt/7vIv3Gm2mnd/WeDx36nfGGHleil0Wg8IeB7eMrVkY0fZ5iTaBisSh8oNANc2IBsCc6vCgCNTIM/IEN0+50Q==
-
-bootswatch@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/bootswatch/-/bootswatch-4.2.1.tgz#be402aeb8f9920c008c62f8a77c29a91a11b4c8a"
-  integrity sha512-2UV3a/3sleGVsOa8q3t5O4+u+ONfQvscMTKwqMVd0tkcypGhiLeE3W461qJ4uZzo6AzCSuYBTzGmOSdel0g9/A==
+bootswatch@3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/bootswatch/-/bootswatch-3.3.7.tgz#eb6f9a9a8523b87a706ea91deec3e0d7eaa8ab1f"
+  integrity sha1-62+amoUjuHpwbqkd7sPg1+qoqx8=
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -4392,16 +4380,6 @@ globby@^6.1.0:
     object-assign "^4.0.1"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
-
-glyphicons-halflings@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/glyphicons-halflings/-/glyphicons-halflings-1.9.1.tgz#18e72f20034240038a5e884383bb7945e2dd262a"
-  integrity sha1-GOcvIANCQAOKXohDg7t5ReLdJio=
-
-glyphicons-only-bootstrap@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/glyphicons-only-bootstrap/-/glyphicons-only-bootstrap-1.0.1.tgz#a04f9a25a20c4613f98f970b07af40918a11ef7c"
-  integrity sha1-oE+aJaIMRhP5j5cLB69AkYoR73w=
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.15"
