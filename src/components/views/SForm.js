@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import LayoutGridField from 'react-jsonschema-form-layout-grid';
+import { Grid } from 'react-bootstrap';
 
 import WorkPlacesTemplate from '../customFields/WorkPlacesTemplate';
 import WorkPlace from '../customFields/WorkPlace';
@@ -15,12 +16,12 @@ import uiSchema from '../../uiSchemas/journey.uischema';
 const fields = {
   layout_grid: LayoutGridField,
   imperial: ImperialBodyParam,
-  workPlace: WorkPlace
+  workPlace: WorkPlace,
 };
 
 const widgets = {
   toggle: ToggleButtons,
-  number: Number
+  number: Number,
 };
 
 const formData = {
@@ -30,37 +31,39 @@ const formData = {
     //measureUnits: 'metric'
     imperialHeight: {
       ft: 80,
-      ins: 30
-    }
+      ins: 30,
+    },
   },
   workPlaces: [
     { jobName: 'work1', weekPercentage: 10, annualIncome: 10000 },
-    { jobName: 'work2', weekPercentage: 20, annualIncome: 20000 }
+    { jobName: 'work2', weekPercentage: 20, annualIncome: 20000 },
   ],
   job: {
     jobName: 'Top manager',
     weekPercentage: 20,
-    annualIncome: 70000
-  }
+    annualIncome: 70000,
+  },
 };
 
 const log = type => console.log.bind(console, type);
 
 const SForm = () => {
   return (
-    <Form
-      ArrayFieldTemplate={WorkPlacesTemplate}
-      fields={fields}
-      formData={formData}
-    //  liveValidate={true}
-      onChange={log('changed')}
-      onError={log('errors')}
-      onSubmit={log('submitted')}
-      schema={schema}
-   //   transformErrors={helpers.transformErrors}
-      uiSchema={uiSchema}
-      widgets={widgets}
-    />
+    <Grid>
+      <Form
+        ArrayFieldTemplate={WorkPlacesTemplate}
+        fields={fields}
+        formData={formData}
+        //  liveValidate={true}
+        onChange={log('changed')}
+        onError={log('errors')}
+        onSubmit={log('submitted')}
+        schema={schema}
+        //   transformErrors={helpers.transformErrors}
+        uiSchema={uiSchema}
+        widgets={widgets}
+      />
+    </Grid>
   );
 };
 
