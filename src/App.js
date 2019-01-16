@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import api from './api';
-//import './App.css';
+// import './App.css';
+// import 'bootswatch/superhero/bootstrap.min.css';
+import 'bootswatch/paper/bootstrap.min.css';
 
 import SForm from './components/views/SForm';
 
