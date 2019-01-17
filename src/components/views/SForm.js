@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import LayoutGridField from 'react-jsonschema-form-layout-grid';
+import { ThemeSwitcher } from 'react-bootstrap-theme-switcher';
 import { Grid } from 'react-bootstrap';
 
 import WorkPlacesTemplate from '../customFields/WorkPlacesTemplate';
@@ -9,7 +10,7 @@ import ToggleButtons from '../widgets/ToggleButtons';
 import Number from '../widgets/Number';
 import ImperialBodyParam from '../customFields/ImperialBodyParam';
 
-import * as helpers from '../../helpers/helpers';
+// import * as helpers from '../../helpers/helpers';
 import schema from '../../schemas/journey.schema';
 import uiSchema from '../../uiSchemas/journey.uischema';
 
@@ -49,21 +50,23 @@ const log = type => console.log.bind(console, type);
 
 const SForm = () => {
   return (
-    <Grid>
-      <Form
-        ArrayFieldTemplate={WorkPlacesTemplate}
-        fields={fields}
-        formData={formData}
-        //  liveValidate={true}
-        onChange={log('changed')}
-        onError={log('errors')}
-        onSubmit={log('submitted')}
-        schema={schema}
-        //   transformErrors={helpers.transformErrors}
-        uiSchema={uiSchema}
-        widgets={widgets}
-      />
-    </Grid>
+    <ThemeSwitcher themePath="/node_modules/bootswatch" defaultTheme="yeti">
+      <Grid>
+        <Form
+          ArrayFieldTemplate={WorkPlacesTemplate}
+          fields={fields}
+          formData={formData}
+          //  liveValidate={true}
+          onChange={log('changed')}
+          onError={log('errors')}
+          onSubmit={log('submitted')}
+          schema={schema}
+          //   transformErrors={helpers.transformErrors}
+          uiSchema={uiSchema}
+          widgets={widgets}
+        />
+      </Grid>
+    </ThemeSwitcher>
   );
 };
 

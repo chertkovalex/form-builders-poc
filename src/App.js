@@ -1,49 +1,11 @@
 import React, { Component } from 'react';
-import api from './api';
-// import './App.css';
-import 'bootswatch/superhero/bootstrap.min.css';
-// import 'bootswatch/paper/bootstrap.min.css';
-
 import SForm from './components/views/SForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'popper.js';
+import jQuery from 'jquery';
 
-(async () => {
-  const contactId = '28';
-  const contactData = await api.getContact(contactId);
-  const { firstName, lastName } = contactData;
-  const { postalCode } = contactData.address;
-  const taxCode = await api.getTaxCode(postalCode);
-  const experianScore = await api.getExperianScore(firstName, lastName, postalCode);
-  const productMetadata = await api.getProdutcMetadata('income_protection');
-  const coverData = [{ coverNo: 142, insuredAge: '55', waitingPeriod: '13', sumAssured: 36 }];
-  const journeyData = {
-    policyStartDate: '2019-01-16T12:24:06.513Z',
-    height: '212',
-    weight: '212',
-    workingHoursPerWeek: '212',
-    jobs: 1,
-    experianScore: '555',
-    taxFramework: '204',
-    annualSalary: 21000,
-  };
-  const employmentData = {
-    totalAnnualGrossIncome: 21,
-    weeklyWorkingHours: 12,
-    jobs: [{ selfEmployed: false, occupation: '2121', percentageOfWeek: '100', annualGrossIncome: 21 }],
-  };
-  const paymentData = {
-    dueDate: '1',
-    billingFrequency: 'monthly',
-    paymentMethod: 'directDebit',
-    accountName: 'accout name',
-    accountNo: '1231-2313',
-    bankSortCode: '12-31-23',
-  };
-
-  const monthlyPremium = await api.calculatePremium(contactId, coverData, journeyData);
-  await api.updateContact(contactId, contactData, employmentData);
-  const policyId = await api.generateQuote(contactId, coverData, journeyData, paymentData);
-  console.log(policyId);
-})();
+window.$ = window.jQuery = jQuery;
+require('bootstrap');
 
 class App extends Component {
   render() {
