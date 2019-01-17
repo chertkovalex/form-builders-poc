@@ -4,40 +4,46 @@ export default {
   title: 'New income protection quote',
   description: 'Please share some personal details to let us create the best offer for you',
   type: 'object',
-  // required: ['age'],
+  required: ['age', 'telephone'],
   properties: {
-    /*    age: {
+    age: {
       type: 'integer',
-      title: 'Age'
-    },*/
+    },
+    email: {
+      type: 'string',
+      format: 'email',
+    },
+    telephone: {
+      type: 'string',
+      pattern: '^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$',
+    },
     //workPlace: shemaTypes.workPlace,
     aboutYou: {
       type: 'object',
       title: 'About You',
       description: 'Please share some details about yourself',
-
       dependencies: {
         measureUnits: {
           oneOf: [
             {
               properties: {
                 measureUnits: {
-                  enum: ['metric']
+                  enum: ['metric'],
                 },
                 metricHeight: {
                   title: 'What is your height?',
-                  type: 'number'
+                  type: 'number',
                 },
                 metricWeight: {
                   title: 'What is your weight?',
-                  type: 'number'
-                }
-              }
+                  type: 'number',
+                },
+              },
             },
             {
               properties: {
                 measureUnits: {
-                  enum: ['imperial']
+                  enum: ['imperial'],
                 },
                 imperialHeight: {
                   type: 'object',
@@ -46,13 +52,13 @@ export default {
                     ft: {
                       type: 'number',
                       title: 'ft',
-                      suffix: 'ft'
+                      suffix: 'ft',
                     },
                     ins: {
                       type: 'number',
-                      suffix: 'ins'
-                    }
-                  }
+                      suffix: 'ins',
+                    },
+                  },
                 },
                 imperialWeight: {
                   title: 'What is your weight?',
@@ -60,18 +66,18 @@ export default {
                   properties: {
                     stone: {
                       suffix: 'stone',
-                      type: 'number'
+                      type: 'number',
                     },
                     lb: {
                       suffix: 'lb',
-                      type: 'number'
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
+                      type: 'number',
+                    },
+                  },
+                },
+              },
+            },
+          ],
+        },
       },
 
       properties: {
@@ -80,9 +86,9 @@ export default {
           title: 'Measurement Units',
           enum: ['metric', 'imperial'],
           enumNames: ['Metric Units', 'Imperial Units'],
-          default: 'metric'
-        }
-      }
+          default: 'metric',
+        },
+      },
     },
     employment: {
       type: 'object',
@@ -91,7 +97,7 @@ export default {
       properties: {
         weeklyWorkingHours: {
           type: 'number',
-          title: 'Weekly work hours'
+          title: 'Weekly work hours',
         },
         workPlaces: {
           title: 'List and item level defaults',
@@ -100,11 +106,11 @@ export default {
           maxItems: 5,
           default: [
             { jobName: 'work1def', weekPercentage: 10, annualIncome: 10000 },
-            { jobName: 'work2def', weekPercentage: 20, annualIncome: 20000 }
+            { jobName: 'work2def', weekPercentage: 20, annualIncome: 20000 },
           ],
-          items: workPlace
-        }
-      }
-    }
-  }
+          items: workPlace,
+        },
+      },
+    },
+  },
 };

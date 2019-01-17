@@ -1,22 +1,39 @@
 export default {
   theme: {
     themePath: 'http://127.0.0.1:9000/',
-    defaultTheme: 'paper',
-    // defaultTheme: 'superhero',
+    defaultTheme: 'superhero',
+    // defaultTheme: 'paper',
     // defaultTheme: 'spacelab',
+  },
+  errorMessages: {
+    age: {
+      required: 'Please enter your age',
+    },
+    email: {
+      format: 'Please enter a valid email address',
+    },
+    telephone: {
+      required: "Don't forget to enter phone number",
+      pattern: 'Please enter a valid US telephone number',
+    },
   },
   'ui:rootFieldId': 'journeyform',
   /*  workPlace: {
     'ui:field': 'workPlace',
   },*/
-  /*
-    age: {
-      'ui:widget': 'number',
-      'ui:title': 'Age of person',
-      'ui:description': '(earthian year)',
-      'ui:suffix': 'years',
-    },
-  */
+  age: {
+    'ui:widget': 'number',
+    'ui:title': 'Age',
+    'ui:suffix': 'years',
+  },
+  email: {
+    'ui:widget': 'email',
+    'ui:title': 'E-mail',
+  },
+  telephone: {
+    'ui:widget': 'text',
+    'ui:title': 'Phone',
+  },
   aboutYou: {
     'ui:field': 'layout_grid',
     'ui:layout_grid': {

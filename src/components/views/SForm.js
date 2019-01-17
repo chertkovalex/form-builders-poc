@@ -10,7 +10,7 @@ import ToggleButtons from '../widgets/ToggleButtons';
 import Number from '../widgets/Number';
 import ImperialBodyParam from '../customFields/ImperialBodyParam';
 
-// import * as helpers from '../../helpers/helpers';
+import { generateErrorTransformers } from '../../helpers/helpers';
 import schema from '../../schemas/journey.schema';
 import uiSchema from '../../uiSchemas/journey.uischema';
 
@@ -56,12 +56,13 @@ const SForm = () => {
           ArrayFieldTemplate={WorkPlacesTemplate}
           fields={fields}
           formData={formData}
-          //  liveValidate={true}
           onChange={log('changed')}
           onError={log('errors')}
           onSubmit={log('submitted')}
+          // liveValidate={true}
+          noHtml5Validate={true}
           schema={schema}
-          //   transformErrors={helpers.transformErrors}
+          transformErrors={generateErrorTransformers(uiSchema)}
           uiSchema={uiSchema}
           widgets={widgets}
         />
