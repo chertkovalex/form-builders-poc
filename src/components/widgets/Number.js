@@ -21,7 +21,6 @@ const Number = ({
   ...props
 }) => {
   const { prefix, suffix } = options;
-
   return (
     <InputGroup>
       {prefix && <InputGroup.Addon>{prefix}</InputGroup.Addon>}
@@ -37,7 +36,7 @@ const Number = ({
         required={required}
         type="number"
         {...props}
-        defautvalue={value}
+        value={value}
       />
       {suffix && <InputGroup.Addon>{suffix}</InputGroup.Addon>}
     </InputGroup>

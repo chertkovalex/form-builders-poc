@@ -11,9 +11,9 @@ class ImperialBodyParam extends React.Component {
     return event => {
       this.setState(
         {
-          [name]: parseFloat(event.target.value)
+          [name]: parseFloat(event.target.value),
         },
-        () => this.props.onChange(this.state)
+        () => this.props.onChange(this.state),
       );
     };
   }
