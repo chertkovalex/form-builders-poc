@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
+import get from 'lodash/get';
 import LayoutGridField from 'react-jsonschema-form-layout-grid';
 import { ThemeSwitcher } from 'react-bootstrap-theme-switcher';
 import { Grid } from 'react-bootstrap';
@@ -10,7 +11,7 @@ import ToggleButtons from '../widgets/ToggleButtons';
 import Number from '../widgets/Number';
 import ImperialBodyParam from '../customFields/ImperialBodyParam';
 
-// import * as helpers from '../../helpers/helpers';
+import * as helpers from '../../helpers/helpers';
 import schema from '../../schemas/journey.schema';
 import uiSchema from '../../uiSchemas/journey.uischema';
 
@@ -27,13 +28,17 @@ const widgets = {
 
 const formData = {
   aboutYou: {
-    /*    height: 178,
-    weight: 80,*/
-    //measureUnits: 'metric'
+    //measureUnits: 'metric',
     imperialHeight: {
-      ft: 80,
-      ins: 30,
+      ft: 0,
+      ins: 0,
     },
+    imperialWeight: {
+      stone: 0,
+      lb: 0,
+    },
+    metricHeight: 30,
+    metricWeight: 70,
   },
   workPlaces: [
     { jobName: 'work1', weekPercentage: 10, annualIncome: 10000 },
@@ -48,31 +53,53 @@ const formData = {
 
 const log = type => console.log.bind(console, type);
 
-const changeEvent = params => {
-  console.log('changed data', params.formData);
-};
+class SForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { formData };
 
-const SForm = () => {
-  return (
-    <ThemeSwitcher themePath={uiSchema.theme.themePath} defaultTheme={uiSchema.theme.defaultTheme}>
-      <Grid>
-        <Form
-          ArrayFieldTemplate={WorkPlacesTemplate}
-          fields={fields}
-          formData={formData}
-          //  liveValidate={true}
-          onChange={changeEvent}
-          //  onChange={log('changed')}
-          onError={log('errors')}
-          onSubmit={log('submitted')}
-          schema={schema}
-          //   transformErrors={helpers.transformErrors}
-          uiSchema={uiSchema}
-          widgets={widgets}
-        />
-      </Grid>
-    </ThemeSwitcher>
-  );
-};
+    this.onChange = this.onChange.bind(this);
+  }
 
+  onChange(params) {
+    const { formData } = params;
+
+    const measureUnitsPath = 'aboutYou.measureUnits';
+    const currentMeasureUnits = get(this.state.formData, measureUnitsPath);
+    const newMeasureUnits = get(formData, measureUnitsPath);
+    if (newMeasureUnits !== currentMeasureUnits) {
+      const newFormData = helpers.convertFormBodyParams(newMeasureUnits, formData);
+
+      this.setState((state, props) => ({
+        formData: newFormData,
+      }));
+    } else {
+      this.setState({ formData });
+    }
+  }
+
+  render() {
+    const { formData } = this.state;
+
+    return (
+      <ThemeSwitcher themePath={uiSchema.theme.themePath} defaultTheme={uiSchema.theme.defaultTheme}>
+        <Grid>
+          <Form
+            ArrayFieldTemplate={WorkPlacesTemplate}
+            fields={fields}
+            formData={formData}
+            //  liveValidate={true}
+            onChange={this.onChange}
+            onError={log('errors')}
+            onSubmit={log('submitted')}
+            schema={schema}
+            transformErrors={helpers.transformErrors}
+            uiSchema={uiSchema}
+            widgets={widgets}
+          />
+        </Grid>
+      </ThemeSwitcher>
+    );
+  }
+}
 export default SForm;
