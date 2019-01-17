@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import api from './api';
 // import './App.css';
-// import 'bootswatch/superhero/bootstrap.min.css';
-import 'bootswatch/paper/bootstrap.min.css';
+import 'bootswatch/superhero/bootstrap.min.css';
+// import 'bootswatch/paper/bootstrap.min.css';
 
 import SForm from './components/views/SForm';
 
@@ -38,6 +38,7 @@ import SForm from './components/views/SForm';
     accountNo: '1231-2313',
     bankSortCode: '12-31-23',
   };
+
   const monthlyPremium = await api.calculatePremium(contactId, coverData, journeyData);
   await api.updateContact(contactId, contactData, employmentData);
   const policyId = await api.generateQuote(contactId, coverData, journeyData, paymentData);
