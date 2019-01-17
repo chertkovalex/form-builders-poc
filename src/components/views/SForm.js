@@ -50,7 +50,7 @@ const log = type => console.log.bind(console, type);
 
 const SForm = () => {
   return (
-    <ThemeSwitcher themePath="/node_modules/bootswatch" defaultTheme="yeti">
+    <ThemeSwitcher themePath={uiSchema.theme.themePath} defaultTheme={uiSchema.theme.defaultTheme}>
       <Grid>
         <Form
           ArrayFieldTemplate={WorkPlacesTemplate}
