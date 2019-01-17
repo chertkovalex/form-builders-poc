@@ -48,6 +48,10 @@ const formData = {
 
 const log = type => console.log.bind(console, type);
 
+const changeEvent = params => {
+  console.log('changed data', params.formData);
+};
+
 const SForm = () => {
   return (
     <ThemeSwitcher themePath={uiSchema.theme.themePath} defaultTheme={uiSchema.theme.defaultTheme}>
@@ -57,7 +61,8 @@ const SForm = () => {
           fields={fields}
           formData={formData}
           //  liveValidate={true}
-          onChange={log('changed')}
+          onChange={changeEvent}
+          //  onChange={log('changed')}
           onError={log('errors')}
           onSubmit={log('submitted')}
           schema={schema}

@@ -29,7 +29,7 @@ class ImperialBodyParam extends React.Component {
           {keys.map(key => (
             <Col xs={6} sm={5} md={5} lg={5} key={key}>
               <InputGroup>
-                <FormControl type="number" step="0.01" value={this.state[key]} onChange={this.onChange(key)} />
+                <FormControl type="number" step="0.01" defaultValue={this.state[key]} onChange={this.onChange(key)} />
                 {properties[key].suffix && <InputGroup.Addon>{properties[key].suffix}</InputGroup.Addon>}
               </InputGroup>
             </Col>
