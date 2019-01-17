@@ -104,7 +104,6 @@ export default {
           title: 'Weekly work hours',
         },
         workPlaces: {
-          title: 'List and item level defaults',
           type: 'array',
           minItems: 1,
           maxItems: 5,
