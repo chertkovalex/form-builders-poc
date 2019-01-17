@@ -12,10 +12,14 @@ export default {
     email: {
       type: 'string',
       format: 'email',
+      minLength: 5,
     },
     telephone: {
       type: 'string',
       pattern: '^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$',
+    },
+    coolField: {
+      type: 'string',
     },
     //workPlace: shemaTypes.workPlace,
     aboutYou: {

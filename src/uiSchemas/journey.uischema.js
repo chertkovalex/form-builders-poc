@@ -11,10 +11,17 @@ export default {
     },
     email: {
       format: 'Please enter a valid email address',
+      minLength: 'Something longer please...',
     },
     telephone: {
       required: "Don't forget to enter phone number",
       pattern: 'Please enter a valid US telephone number',
+    },
+  },
+  validations: {
+    coolField: {
+      expression: 'age > 5 && email',
+      message: 'Too young',
     },
   },
   'ui:rootFieldId': 'journeyform',
@@ -33,6 +40,10 @@ export default {
   telephone: {
     'ui:widget': 'text',
     'ui:title': 'Phone',
+  },
+  coolField: {
+    'ui:widget': 'text',
+    'ui:title': 'Cool Field',
   },
   aboutYou: {
     'ui:field': 'layout_grid',
