@@ -4,18 +4,28 @@ export default {
   title: 'New income protection quote',
   description: 'Please share some personal details to let us create the best offer for you',
   type: 'object',
-  // required: ['age'],
+  required: ['age', 'telephone'],
   properties: {
-    /*    age: {
+    age: {
       type: 'integer',
-      title: 'Age'
-    },*/
+    },
+    email: {
+      type: 'string',
+      format: 'email',
+      minLength: 5,
+    },
+    telephone: {
+      type: 'string',
+      pattern: '^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$',
+    },
+    coolField: {
+      type: 'string',
+    },
     //workPlace: shemaTypes.workPlace,
     aboutYou: {
       type: 'object',
       title: 'About You',
       description: 'Please share some details about yourself',
-
       dependencies: {
         measureUnits: {
           oneOf: [

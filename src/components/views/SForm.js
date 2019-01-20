@@ -11,7 +11,7 @@ import ToggleButtons from '../widgets/ToggleButtons';
 import Number from '../widgets/Number';
 import ImperialBodyParam from '../customFields/ImperialBodyParam';
 
-import * as helpers from '../../helpers/helpers';
+import { generateErrorTransformers, validate, convertFormBodyParams } from '../../helpers/helpers';
 import schema from '../../schemas/journey.schema';
 import uiSchema from '../../uiSchemas/journey.uischema';
 
@@ -68,7 +68,7 @@ class SForm extends React.Component {
     const currentMeasureUnits = get(this.state.formData, measureUnitsPath);
     const newMeasureUnits = get(formData, measureUnitsPath);
     if (newMeasureUnits !== currentMeasureUnits) {
-      const newFormData = helpers.convertFormBodyParams(newMeasureUnits, formData);
+      const newFormData = convertFormBodyParams(newMeasureUnits, formData);
 
       this.setState((state, props) => ({
         formData: newFormData,
@@ -86,14 +86,16 @@ class SForm extends React.Component {
         <Grid>
           <Form
             ArrayFieldTemplate={WorkPlacesTemplate}
+            transformErrors={generateErrorTransformers(uiSchema)}
+            validate={validate(uiSchema)}
             fields={fields}
             formData={formData}
-            //  liveValidate={true}
             onChange={this.onChange}
             onError={log('errors')}
             onSubmit={log('submitted')}
+            // liveValidate={true}
+            noHtml5Validate={true}
             schema={schema}
-            transformErrors={helpers.transformErrors}
             uiSchema={uiSchema}
             widgets={widgets}
           />

@@ -1,18 +1,43 @@
-// Example function to change an error messages
-import get from 'lodash/get';
 import converter from './converter';
 import update from 'immutability-helper';
+import _ from 'lodash';
+import { evaluate } from '@sensative/jsep-eval';
 
-export const transformErrors = errors => {
-  return errors.map(error => {
-    if (error.name === 'required') {
-      const missingMessage = 'should not be empty';
-      const stack = `${error.params.missingProperty} ${missingMessage}`;
-      return { ...error, stack };
+const normalizeProperty = prop => prop.replace(/^./, '');
+
+export const generateErrorTransformers = _.curry((uiSchema, errors) => {
+  const { errorMessages } = uiSchema;
+
+  return errors.map(err => {
+    const { name, property } = err;
+    const propName = normalizeProperty(property);
+    const message = _.get(errorMessages, [propName, name]);
+
+    if (!message) {
+      return err;
     }
-    return error;
+
+    return {
+      ...err,
+      message,
+      stack: message,
+    };
   });
-};
+});
+
+export const validate = _.curry((uiSchema, formData, errors) => {
+  const { validations } = uiSchema;
+
+  _.forEach(validations, ({ expression, message }, property) => {
+    const isValid = evaluate(expression, { ...formData, NUMBER: parseInt });
+
+    if (!isValid) {
+      errors[property].addError(message);
+    }
+  });
+
+  return errors;
+});
 
 export const convertFormBodyParams = (newMeasureUnits, formData) => {
   const metricHeightPath = 'aboutYou.metricHeight';
@@ -22,8 +47,8 @@ export const convertFormBodyParams = (newMeasureUnits, formData) => {
 
   let newFormData;
   if (newMeasureUnits === 'metric') {
-    const imperialHeight = get(formData, imperialHeightPath);
-    const imperialWeight = get(formData, imperialWeightPath);
+    const imperialHeight = _.get(formData, imperialHeightPath);
+    const imperialWeight = _.get(formData, imperialWeightPath);
     const metricHeight = converter.imperialHeightToMetric(imperialHeight);
     const metricWeight = converter.imperialWeightToMetric(imperialWeight);
 
@@ -32,8 +57,8 @@ export const convertFormBodyParams = (newMeasureUnits, formData) => {
     });
   }
   if (newMeasureUnits === 'imperial') {
-    const metricHeight = get(formData, metricHeightPath);
-    const metricWeight = get(formData, metricWeightPath);
+    const metricHeight = _.get(formData, metricHeightPath);
+    const metricWeight = _.get(formData, metricWeightPath);
     const imperialHeight = converter.metricHeightToImperial(metricHeight);
     const imperialWeight = converter.metricWeightToImperial(metricWeight);
 
